@@ -1,7 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
-
+import productRouter from "../backend/routes/productRouter.js"
+import cartRoute from "./routes/cartRoute.js";
 
 
 let app = express();
@@ -19,6 +20,9 @@ let connection =mongoose.connection
 connection.once("open",()=>{
     console.log("Mongodb successfully connected");
 })
+
+app.use("/api/product",productRouter)
+app.use("/api/cart",cartRoute)
 
 
 app.listen(3000,()=>{
