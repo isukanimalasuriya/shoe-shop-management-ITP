@@ -5,6 +5,7 @@ import productRouter from "../backend/routes/productRouter.js"
 import cartRoute from "./routes/cartRoute.js";
 import wishlistRoute from "./routes/wishlistRoute.js";
 import reviewRoute from "./routes/reviewRoute.js";
+import customizeShoeRoute from "./routes/customizeshoueRoute.js";
 
 
 let app = express();
@@ -27,6 +28,7 @@ app.use("/api/product",productRouter)
 app.use("/api/cart",cartRoute)
 app.use("/api/wishlist",wishlistRoute)
 app.use("/api/review",reviewRoute)
+app.use("/api/customize",customizeShoeRoute)
 
 
 app.listen(3000,()=>{
