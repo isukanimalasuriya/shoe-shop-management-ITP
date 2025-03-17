@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import productRouter from "../backend/routes/productRouter.js"
 import cartRoute from "./routes/cartRoute.js";
+import wishlistRoute from "./routes/wishlistRoute.js";
 
 
 let app = express();
@@ -23,6 +24,7 @@ connection.once("open",()=>{
 
 app.use("/api/product",productRouter)
 app.use("/api/cart",cartRoute)
+app.use("/api/wishlist",wishlistRoute)
 
 
 app.listen(3000,()=>{
