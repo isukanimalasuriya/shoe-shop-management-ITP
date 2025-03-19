@@ -8,10 +8,13 @@ import reviewRoute from "./routes/reviewRoute.js";
 import customizeShoeRoute from "./routes/customizeshoueRoute.js";
 import userRouter from "./routes/userRouter.js"
 import dotenv from "dotenv"
+import cors from "cors"
 
 dotenv.config()
 
 let app = express();
+
+app.use(cors())
 
 app.use(bodyParser.json());
 

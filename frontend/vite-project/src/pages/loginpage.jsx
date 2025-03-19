@@ -1,4 +1,7 @@
 import { useState } from "react";
+import axios from "axios"
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export default function LoginPage(){
     const [email, setEmail] = useState("")
@@ -7,6 +10,17 @@ export default function LoginPage(){
     function handleOnSubmit(e){
         e.preventDefault()
         console.log(email, password)
+
+        axios.post("http://localhost:3000/api/users/login", {
+            email : email,
+            password : password
+        }).then((res)=>{
+            console.log(res)
+            toast.success("Login success")
+        }).catch((err)=>{
+            console.log(err)
+            toast.error(err.response.data.error)
+        })
     }
 
     return(

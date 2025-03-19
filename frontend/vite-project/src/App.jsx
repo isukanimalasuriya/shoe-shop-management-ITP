@@ -2,6 +2,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { Link } from 'react-router-dom';
 import './App.css'
 import LoginPage from './pages/loginpage';
+import toast, { Toaster } from 'react-hot-toast';
 
 function HomePage() {
   return (
@@ -17,8 +18,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes path="/*">
-        <Route path="/" element={<HomePage />}/>
+       <Toaster />
+        <Routes>
+          <Route path="/" element={<HomePage />}/>
           <Route path="/customerlogin" element={<LoginPage />}/>
         </Routes>
       </BrowserRouter>
