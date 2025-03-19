@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './App.css'
 import LoginPage from './pages/loginpage';
 import toast, { Toaster } from 'react-hot-toast';
+import CustomerDashboard from "./pages/customerDashboard";
 
 function HomePage() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}/>
           <Route path="/customerlogin" element={<LoginPage />}/>
+          <Route path="/customerdashboard" element={<CustomerDashboard />}/>
         </Routes>
       </BrowserRouter>
     </>
