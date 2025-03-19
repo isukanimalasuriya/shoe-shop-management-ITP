@@ -45,7 +45,7 @@ export function loginUser(req, res){
                         role: user.role,
                         profilePic: user.profilePic
                     }, process.env.JWT_SECRET)
-                    res.json({message: "Login success", token:token})
+                    res.json({message: "Login success", token:token, user: user})
                 }else{
                     res.status(401).json({error: "Login failed"})
                 }
