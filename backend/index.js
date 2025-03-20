@@ -9,6 +9,8 @@ import customizeShoeRoute from "./routes/customizeshoueRoute.js";
 import userRouter from "./routes/userRouter.js"
 import dotenv from "dotenv"
 import cors from "cors"
+import router from "./routes/auth.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config()
 
@@ -47,6 +49,7 @@ connection.once("open",()=>{
     console.log("Mongodb successfully connected");
 })
 
+app.use("/api/auth", router)
 app.use("/api/users", userRouter)
 app.use("/api/product",productRouter)
 app.use("/api/cart",cartRoute)
@@ -56,5 +59,5 @@ app.use("/api/customize",customizeShoeRoute)
 
 
 app.listen(3000,()=>{
-    console.log("Server start");
+    console.log("Server starting on 3000 port");
 })
