@@ -16,14 +16,13 @@ import router from "./routes/authRouter.js";
 dotenv.config();
 
 let app = express();
+const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res)=>{
-    res.send("Hello world")
-})
+app.use(express.json())
 
 app.use("/api/auth/", router)
 
-app.listen(3000,()=>{
+app.listen(PORT,()=>{
     connectDB()
-    console.log("Server starting on 3000 port")
+    console.log("Server starting on port", PORT)
 })
