@@ -1,13 +1,12 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { Link } from 'react-router-dom';
 import './App.css'
-import LoginPage from './pages/loginpage';
 import toast, { Toaster } from 'react-hot-toast';
 import CustomerDashboard from "./pages/customerDashboard";
-import RegistrationPage from "./pages/registrationpage";
 import { FloatingShape } from "./components/FloatingShape";
 import CustomerSignup from "./pages/CustomerSignup";
 import CustomerLoginPage from "./pages/CustomerLoginPage";
+import EmailVerificationPage from "./pages/EmailVerificationPage";
 
 function HomePage() {
   return (
@@ -35,6 +34,7 @@ function App() {
           <Route path="/customerdashboard" element={<CustomerDashboard />}/>
           <Route path="/customerregister" element={<CustomerSignup />}/>
           <Route path="/floating" element={<FloatingShape />}/>
+          <Route path="/email-verify" element={<EmailVerificationPage />}/>
         </Routes>
       </BrowserRouter>
     </>
