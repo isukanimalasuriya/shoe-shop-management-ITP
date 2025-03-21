@@ -34,7 +34,7 @@ function App() {
           <Route path="/customerdashboard" element={<CustomerDashboard />}/>
           <Route path="/customerregister" element={<CustomerSignup />}/>
           <Route path="/floating" element={<FloatingShape />}/>
-          <Route path="/email-verify" element={<EmailVerificationPage />}/>
+          <Route path="/verify-email" element={<EmailVerificationPage />}/>
         </Routes>
       </BrowserRouter>
     </>
