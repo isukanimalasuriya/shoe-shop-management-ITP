@@ -23,6 +23,7 @@ app.use(cookieParser())
 
 app.use("/api/auth/", router)
 
+
 app.listen(PORT,()=>{
     connectDB()
     console.log("Server starting on port", PORT)
