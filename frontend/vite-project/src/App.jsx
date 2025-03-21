@@ -28,6 +28,7 @@ function App() {
     <>
       <BrowserRouter>
        <Toaster position="top-right"/>
+       
         <Routes>
           <Route path="/" element={<HomePage />}/>
           <Route path="/customerlogin" element={<CustomerLoginPage />}/>
