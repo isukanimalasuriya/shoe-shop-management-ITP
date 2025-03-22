@@ -2,7 +2,7 @@ import {MailtrapClient} from "mailtrap";
 import dotenv from "dotenv";
 
 
-const TOKEN = "46c804b8ced6ac6b5e71fa2b08038771";
+const TOKEN = "0bceb59a8ccb9d4a0fa8ee922e27a0ad";
 
 export const mailtrapClient = new MailtrapClient({
   token: TOKEN,

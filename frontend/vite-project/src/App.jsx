@@ -7,6 +7,18 @@ import { FloatingShape } from "./components/FloatingShape";
 import CustomerSignup from "./pages/CustomerSignup";
 import CustomerLoginPage from "./pages/CustomerLoginPage";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
+import { useAuthStore } from "./store/authStore";
+import { useEffect } from "react";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+
+const RedirectAuthenticatedUser = ({children})=>{
+  const {isAuthenticated, user} = useAuthStore();
+
+  if(isAuthenticated && user.isVerified){
+    return <Navigate to="/" replace />
+  }
+  return children
+}
 
 function HomePage() {
   return (
@@ -23,19 +35,32 @@ function HomePage() {
 }
 
 function App() {
+  const { isAuthenticated, checkAuth, user } = useAuthStore();
+
+	useEffect(() => {
+		checkAuth();
+	}, [checkAuth])
+
+  console.log("isAuthen", isAuthenticated)
+  console.log("user", user)
 
   return (
     <>
       <BrowserRouter>
        <Toaster position="top-right"/>
-       
+
         <Routes>
           <Route path="/" element={<HomePage />}/>
           <Route path="/customerlogin" element={<CustomerLoginPage />}/>
           <Route path="/customerdashboard" element={<CustomerDashboard />}/>
-          <Route path="/customerregister" element={<CustomerSignup />}/>
+
+          <Route path="/customerregister" element={<RedirectAuthenticatedUser>
+              <CustomerSignup />
+            </RedirectAuthenticatedUser>}/>
+
           <Route path="/floating" element={<FloatingShape />}/>
           <Route path="/verify-email" element={<EmailVerificationPage />}/>
+          <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
         </Routes>
       </BrowserRouter>
     </>
