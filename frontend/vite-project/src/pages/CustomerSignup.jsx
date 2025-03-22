@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Input from '../components/Input';
-import { Mail, User, Lock, Loader } from "lucide-react";
+import { Mail, User, Lock, Loader, Phone } from "lucide-react";
 import { Link,useNavigate } from "react-router-dom";
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter';
 import { useAuthStore } from "../store/authStore";
@@ -11,6 +11,7 @@ const CustomerSignup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
     const navigate = useNavigate();
 
     const { signup, error, isLoading } = useAuthStore();
@@ -19,7 +20,7 @@ const CustomerSignup = () => {
         e.preventDefault();
 
         try {
-			await signup(email, password, name);
+			await signup(email, password, name, phoneNumber);
 			navigate("/verify-email");
 		} catch (error) {
 			console.log(error);
@@ -53,6 +54,13 @@ const CustomerSignup = () => {
 			placeholder='Email address'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+              icon={Phone}
+              type='text'
+              placeholder='Phone Number'
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <Input
             icon={Lock}
