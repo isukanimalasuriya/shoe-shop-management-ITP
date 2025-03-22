@@ -12,6 +12,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 import { connectDB } from "./DB/connectDB.js";
 import router from "./routes/authRouter.js";
+import employeeRoute from "./routes/employeeRoute.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use("/api/auth/", router)
+app.use("/api/auth/employeess", employeeRoute)
 
 
 app.listen(PORT,()=>{

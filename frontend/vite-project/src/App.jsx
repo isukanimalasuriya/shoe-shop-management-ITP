@@ -11,6 +11,7 @@ import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import EmployeeRoutes from "./pages/EmployeeRoutes";
 
 const RedirectAuthenticatedUser = ({children})=>{
   const {isAuthenticated, user} = useAuthStore();
@@ -63,6 +64,9 @@ function App() {
           <Route path="/verify-email" element={<EmailVerificationPage />}/>
           <Route path="/forgot-password" element={<ForgotPasswordPage />}/>
           <Route path="/reset-password/:token" element={<ResetPasswordPage />}/>
+
+
+          <Route path="/employeeroutes/*" element={<EmployeeRoutes/>} />
         </Routes>
       </BrowserRouter>
     </>
