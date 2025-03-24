@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes,Route } from "react-router-dom";
+import Navbar from "../src/components/Navbar"
+import Footer from "../src/components/Footer"
+import Home from "../src/pages/Home";
 import './App.css'
+import Collection from "../src/pages/Collection";
+import Product from "../src/pages/Product";
+import { ToastContainer, toast } from 'react-toastify';
+import Cart from "../src/pages/Cart";
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-9[vw]">
+      <ToastContainer />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/Collection" element={<Collection/>}></Route>
+        <Route path="/product/:productId" element={<Product/>}></Route>
+        <Route path="/Cart" element={<Cart/>}></Route>
+      </Routes>
+      <Footer/>
+      
+    </div>
+    
   )
 }
 
-export default App
+export default App;

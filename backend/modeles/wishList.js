@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 const wishlistSchema = new mongoose.Schema({
-    user_id: {
+    userId: {
         type: String,
         required: true,
         unique:true
     },
     items: [
         {
-            shoe_id: {
-                type: String,
+            shoeId: {
+                type: mongoose.Schema.Types.ObjectId,
                 required: true
             },
 
@@ -28,7 +28,7 @@ const wishlistSchema = new mongoose.Schema({
                 required: true
             },
             
-            image_url: {
+            imageUrl: {
                 type: String,
                 required:true
             }

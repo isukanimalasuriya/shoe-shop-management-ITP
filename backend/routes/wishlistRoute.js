@@ -6,6 +6,6 @@ const wishlistRoute = express.Router();
 
 wishlistRoute .post("/",addItemToWishlist)
 wishlistRoute .get("/",displayWishlist)
-wishlistRoute .delete("/:user_id",deleteWishlistItem)
+wishlistRoute .delete("/:userId",deleteWishlistItem)
 
 export default wishlistRoute

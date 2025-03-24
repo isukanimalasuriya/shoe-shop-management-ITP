@@ -1,9 +1,12 @@
 import express from "express";
 
-import { addReview } from "../controllers/reviewmanage.js";
+import { addReview,deleteReview,getReview,updateReview } from "../controllers/reviewmanage.js";
 
 const reviewRoute = express.Router();
 
-reviewRoute.post("/",addReview)
+reviewRoute.post("/",addReview);
+reviewRoute.get("/",getReview)
+reviewRoute.put("/:reviewId",updateReview )
+reviewRoute.delete("/:reviewId",deleteReview )
 
 export default reviewRoute

@@ -5,8 +5,8 @@ import { addTocart,displaycart,updateCartQuantity,deleteCartItem } from "../cont
 const cartRoute = express.Router();
 
 cartRoute.post("/",addTocart)
-cartRoute.get("/",displaycart)
-cartRoute.put("/:user_id",updateCartQuantity)
-cartRoute.delete("/:user_id",deleteCartItem)
+cartRoute.get("/:userId",displaycart)
+cartRoute.put("/:userId",updateCartQuantity)
+cartRoute.delete("/:userId",deleteCartItem)
 
 export default cartRoute

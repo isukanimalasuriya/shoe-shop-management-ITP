@@ -1,11 +1,12 @@
 import Wishlist from "../modeles/wishList.js"; // Adjust the import path as needed
+import mongoose from "mongoose";
 
 export async function addItemToWishlist(req, res) {
   try {
-    const { user_id, items } = req.body; // Expecting `items` as an array
-
+    const { userId, items } = req.body; // Expecting `items` as an array
+    
     // Validate user_id
-    if (!user_id) {
+    if (!userId) {
       return res.status(400).json({ message: "User ID is required." });
     }
 
@@ -15,21 +16,21 @@ export async function addItemToWishlist(req, res) {
     }
 
     // Find the user's wishlist
-    let wishlist = await Wishlist.findOne({ user_id });
+    let wishlist = await Wishlist.findOne({ userId });
 
     if (!wishlist) {
       // If no wishlist exists, create a new one with the provided items
-      wishlist = new Wishlist({ user_id, items });
+      wishlist = new Wishlist({ userId, items });
     } else {
       let itemAlreadyExists = false;
 
       items.forEach(newItem => {
-        if (!newItem || typeof newItem !== "object" || !newItem.shoe_id) {
+        if (!newItem || typeof newItem !== "object" || !newItem.shoeId) {
           return res.status(400).json({ message: "Invalid item data." });
         }
 
         const existingItem = wishlist.items.find(
-          (item) => item.shoe_id === newItem.shoe_id
+          (item) => item.shoeId === newItem.shoeId
         );
 
         if (existingItem) {
@@ -63,13 +64,13 @@ export async function addItemToWishlist(req, res) {
 
 export const displayWishlist = async (req, res) => {
     try {
-        const { user_id } = req.body; // Extract user_id properly
+        const { userId } = req.body; // Extract user_id properly
 
-        if (!user_id) {
+        if (!userId) {
             return res.status(400).json({ message: "User ID is required" });
         }
 
-        const wishlist = await Wishlist.findOne({ user_id }); // Find the wishlist for the user
+        const wishlist = await Wishlist.findOne({ userId }); // Find the wishlist for the user
 
         if (!wishlist) {
             return res.status(404).json({ message: "Wishlist not found" });
@@ -86,23 +87,32 @@ export const displayWishlist = async (req, res) => {
 
 
 
+
+
 export async function deleteWishlistItem(req, res) {
     try {
-        const user_id = req.params.user_id; // Extract user_id from URL params
-        const { shoe_id } = req.body; // Extract shoe_id from request body
+        const userId = req.params.userId; // Extract userId from URL params
+        const { shoeId } = req.body; // Extract shoeId from request body
 
-        // Find and update the wishlist by removing the item with the given shoe_id
+        // Convert shoeId to ObjectId
+        const shoeObjectId = new mongoose.Types.ObjectId(shoeId);
+
+        // Find and update the wishlist by removing the item with the given shoeId
         const wishlist = await Wishlist.findOneAndUpdate(
-            { user_id },
-            { $pull: { items: { shoe_id } } }
+            { userId },
+            { $pull: { items: { shoeId: shoeObjectId } } },
+            { new: true } // Return the updated document
         );
+
 
         if (!wishlist) {
             return res.status(404).json({ message: "Wishlist not found" });
         }
 
-        res.json({ message: "Item removed from wishlist successfully" });
+        res.json({ message: "Item removed from wishlist successfully"});
     } catch (error) {
-        res.status(500).json({ message: "Failed to delete wishlist item" });
+        console.error(error);
+        res.status(500).json({ message: "Failed to delete wishlist item", error });
     }
 }
+

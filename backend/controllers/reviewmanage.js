@@ -1,4 +1,5 @@
 import Review from "../modeles/review.js";
+import mongoose from "mongoose";
 /*
 export function addReview(req,res){
 
@@ -17,24 +18,17 @@ export function addReview(req,res){
 
 export async function addReview(req, res) {
     try {
-        const { shoe_id, user_id, name, rating, comment, profilepicture, isApproved } = req.body;
+        const { brandId, userId, userFullName, rating, comment, profilepicture} = req.body;
 
-        // Check if the user has already reviewed this shoe
-        const existingReview = await Review.findOne({ shoe_id, user_id });
-
-        if (existingReview) {
-            return res.status(400).json({ error: "User has already reviewed this shoe" });
-        }
 
         // Create a new review since no duplicate exists
         const newReview = new Review({
-            shoe_id,
-            user_id,
-            name,
+            brandId,
+            userId,
+            userFullName,
             rating,
             comment,
-            profilepicture,
-            isApproved
+            profilepicture
         });
 
         await newReview.save();
@@ -42,5 +36,58 @@ export async function addReview(req, res) {
 
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+}
+
+
+export async function getReview(req, res) {
+
+    try{
+        const reviews = await Review.find({});
+        res.json(reviews);
+        return;
+
+    }catch(e){
+    res.status(500).json({
+        message:"Failed to get reviews"
+    })
+    }
+}
+
+
+export async function updateReview(req,res) {
+
+    try{
+
+        const {reviewId} = req.params;
+
+        const data = req.body;
+
+        const reviewObjId = new mongoose.Types.ObjectId(reviewId);
+
+        await Review.updateOne({_id:reviewObjId},data)
+
+        res.json({message:"Review updated successfully"})
+
+    }catch(error){
+        res.status(500).json({
+                message:"Failed to update Review"
+        })
+    }
+}
+
+export async function deleteReview(req,res) {
+    try{
+        const {reviewId} = req.params;
+
+        const reviewObjId = new mongoose.Types.ObjectId(reviewId);
+
+        await Review.deleteOne({_id:reviewObjId})
+
+    res.json({message:"Review deleted successfully"})
+    }catch(e){
+        res.status(500).json({
+            message:"Failed to delete review"
+        })
     }
 }
