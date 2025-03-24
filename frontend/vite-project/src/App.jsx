@@ -15,6 +15,7 @@ import EmployeeRoutes from "./pages/EmployeeRoutes";
 import LoginPage from "./pages/loginpage";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployeeDashboardHR from "./pages/EmployeeDashboardHR";
+import NavBar from "./components/NavBar";
 
 const RedirectAuthenticatedUser = ({children})=>{
   const {isAuthenticated, user} = useAuthStore();
@@ -28,7 +29,8 @@ const RedirectAuthenticatedUser = ({children})=>{
 function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-900 justify-center relative overflow-hidden">
-      <h1>Welcome to Home</h1>
+      <NavBar/>
+      <h1 className="m-40">Welcome to Home</h1>
       <Link to="/customerlogin">Login</Link>
       <Link to="/customerregister">Register</Link>
       <Link to="/floating">Floating</Link>

@@ -19,7 +19,7 @@ const CustomerLoginPage = () => {
 	};
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900">
+    <div className="flex justify-center items-center min-h-screen bg-white font-display">
     <motion.div
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
@@ -27,6 +27,9 @@ const CustomerLoginPage = () => {
 			className='max-w-md w-full bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden'
 		>
 			<div className='p-8'>
+			<div class="flex justify-center p-2">
+    			<img src="/images/newlogo.png" alt="" width="100px"/>
+			</div>
 				<h2 className='text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-emerald-500 text-transparent bg-clip-text'>
 					Welcome Back
 				</h2>
