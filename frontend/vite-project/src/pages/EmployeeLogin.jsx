@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 const EmployeeLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      const res = await axios.post("http://localhost:5000/api/auth/employee/employeelogin", { email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
       setRole(res.data.role);
@@ -33,6 +35,8 @@ const EmployeeLogin = () => {
             <input 
               type="email" 
               placeholder="name@company.com" 
+              value={email}
+              onChange={(e)=> setEmail(e.target.value)}
               className="w-full px-4 py-2 border border-gray-600 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" 
             />
           </div>
@@ -41,23 +45,16 @@ const EmployeeLogin = () => {
             <input 
               type="password" 
               placeholder="********" 
+              value={password}
+              onChange={(e)=> setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-600 rounded bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" 
             />
           </div>
-          <div className="flex justify-between items-center mb-6">
-            <label className="flex items-center">
-              <input type="checkbox" className="text-blue-500 focus:ring-blue-500" />
-              <span className="ml-2 text-sm">Remember me</span>
-            </label>
-            <a href="#" className="text-sm text-blue-400 hover:underline">Forgot password?</a>
-          </div>
+
           <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded transition duration-300">
             Log in to your account
           </button>
         </form>
-        <p className="text-center text-sm mt-4">
-          Don't have an account? <a href="#" className="text-blue-400 hover:underline">Sign up</a>
-        </p>
       </div>
     </div>
   )

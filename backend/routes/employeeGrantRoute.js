@@ -1,9 +1,9 @@
 import express from "express";
-import { verifyToken, authorizeRoles } from "../middleware/employeeAuth";
+import { verifyToken, authorizeRoles } from "../middleware/employeeAuth.js";
 
 const employeeGrant = express.Router()
 
-employeeGrant.get("/hr-dashboard", verifyToken, authorizeRoles(["HR_MANAGER"]), (req, res) => {
+employeeGrant.get("/api/hr-dashboard", verifyToken, authorizeRoles(["HR_MANAGER"]), (req, res) => {
   res.json({ message: "HR Manager Dashboard Access Granted" });
 });
 

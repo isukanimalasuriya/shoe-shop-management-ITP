@@ -24,7 +24,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use("/api/auth/", router)
-app.use("/api/auth/employeess", employeeRoute)
+app.use("/api/users", userRouter)
 
 
 app.listen(PORT,()=>{

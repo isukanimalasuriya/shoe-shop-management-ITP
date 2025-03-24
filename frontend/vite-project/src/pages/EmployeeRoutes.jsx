@@ -8,20 +8,25 @@ import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 const EmployeeRoutes = () => {
-    
+  const [role, setRole] = useState(localStorage.getItem("role") || "");
+
+  useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    if (storedRole) {
+      setRole(storedRole);
+    }
+  }, []);
 
   return (
     <>
            <Toaster position="top-right"/>
     
             <Routes>
-              <Route path="/employeelogin" element={<EmployeeLogin />}/>
 
-              <Route path="/login" element={<Login setRole={setRole} />} />
-                    {role === "HR_MANAGER" && <Route path="/hr-dashboard" element={<HRDashboard />} />}
-                    {role === "DELIVERY_MANAGER" && <Route path="/delivery-dashboard" element={<DeliveryDashboard />} />}
-                    {role === "DELIVERY_PERSON" && <Route path="/delivery-tasks" element={<DeliveryTasks />} />}
-            <Route path="*" element={<Navigate to="/login" />} />
+            <Route path="/employeelogin" element={<EmployeeLogin setRole={setRole} />} />
+            {role && role === "HR_MANAGER" && <Route path="/hr-dashboard" element={<HRDashboard />} />}
+            {role && role === "DELIVERY_MANAGER" && <Route path="/delivery-dashboard" element={<DeliveryDashboard />} />}
+            {role && role === "DELIVERY_PERSON" && <Route path="/delivery-tasks" element={<DeliveryTasks />} />}
     
             </Routes>
             <h2>Hello</h2>
