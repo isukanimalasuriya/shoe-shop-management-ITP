@@ -1,16 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuthStore } from '../store/authStore';
 import { useNavigate } from "react-router-dom";
 import NavBar from '../components/NavBar';
+import axios from "axios";
 
 const customerDashboard = () => {
     const { user, logout } = useAuthStore();
+    const [name, setName] = useState(user?.name || '');
+    const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || '');
     const navigate = useNavigate();
 
     const handleLogout = ()=>{
         logout()
         navigate("/customerlogin");
     }
+
+    const handleUpdateProfile = async () => {
+      try {
+          const response = await axios.put("http://localhost:5000/api/auth/update-profile", {
+              name,
+              phoneNumber,
+          }, { withCredentials: true });
+  
+          if (response.data.success) {
+              console.log("Profile updated successfully");
+              // Update the user data in your store or state
+          } else {
+              console.log("Failed to update profile");
+          }
+      } catch (error) {
+          console.log("Error updating profile", error);
+      }
+  };
 
   return (
     <div>
@@ -27,11 +48,11 @@ const customerDashboard = () => {
     <dl class="divide-y divide-gray-100">
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Full name</dt>
-        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{user?.name || 'N/A'}</dd>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"><input type="text" value={name} onChange={(e) => setName(e.target.value)} /></dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Mobile number</dt>
-        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">{user.phoneNumber}</dd>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0"><input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/></dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
         <dt class="text-sm/6 font-medium text-gray-900">Email address</dt>
@@ -51,6 +72,10 @@ const customerDashboard = () => {
       </div>
 
     </dl>
+    <button onClick={handleUpdateProfile}
+    className='px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition-all'>
+      Update Details
+    </button>
     <button 
         onClick={handleLogout}
         class="flex items-center w-full p-2 text-white bg-red-500 rounded-lg hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-800 group">

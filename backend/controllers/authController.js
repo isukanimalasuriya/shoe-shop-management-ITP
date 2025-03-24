@@ -194,3 +194,35 @@ export const checkAuth = async(req, res)=>{
 		res.status(400).json({ success: false, message: error.message });
 	}
 }
+
+export const updateCustomerInfo = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const { name, phoneNumber } = req.body;
+
+        if (!name || !phoneNumber) {
+            throw new Error("All fields are required");
+        }
+
+        const user = await User.findByIdAndUpdate(userId, {
+            name,
+            phoneNumber,
+        }, { new: true });
+
+        if (!user) {
+            return res.status(400).json({ success: false, message: "User not found" });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            user: {
+                ...user._doc,
+                password: undefined,
+            },
+        });
+    } catch (error) {
+        console.log("Error in updateProfile ", error);
+        res.status(400).json({ success: false, message: error.message });
+    }
+};
