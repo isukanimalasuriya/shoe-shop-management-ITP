@@ -23,8 +23,29 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true}));
 app.use(express.json())
 app.use(cookieParser())
 
+// app.use((req, res, next) => {
+//     const token = req.header("Authorization");
+
+//     if (token !== null) {
+//         const cleanToken = token.replace("Bearer ", "");
+
+//         jwt.verify(cleanToken, process.env.JWT_SECRET, (err, decoded) => {
+//             if (!err) {
+//                 req.user = decoded;
+//             }
+//         });
+//     }
+//     next();
+// });
+
 app.use("/api/auth/", router)
 app.use("/api/users", userRouter)
+app.use("/api/product", productRouter);
+app.use("/api/cart", cartRoute);
+app.use("/api/wishlist", wishlistRoute);
+app.use("/api/review", reviewRoute);
+app.use("/api/customize", customizeShoeRoute);
+app.use("/api/employee", employeeRoute);
 
 
 app.listen(PORT,()=>{
