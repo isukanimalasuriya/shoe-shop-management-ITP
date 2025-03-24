@@ -13,18 +13,22 @@ export default function LoginPage(){
         e.preventDefault()
         console.log(email, password)
 
-        axios.post("http://localhost:3000/api/users/login", {
+        axios.post("http://localhost:5000/api/users/login", {
             email : email,
             password : password
         }).then((res)=>{
             console.log(res)
             toast.success("Login success")
             const user = res.data.user
+            localStorage.setItem("token", res.data.token)
             if(user.role === "admin"){
               navigate("/")
             }
+            else if(user.role === "HR_MANAGER"){
+              navigate("/employeedashboardhr")
+            }
             else{
-              navigate("/customerdashboard")
+              navigate("/employeedashboard")
             }
 
 
@@ -38,7 +42,7 @@ export default function LoginPage(){
         <div>
         <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img className="mx-auto h-15" src="/images/logo.png" alt="Your Company" />
+        <img className="mx-auto h-15" src="/images/newlogo.png" alt="Your Company" />
         <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
           Sign in to your account
         </h2>

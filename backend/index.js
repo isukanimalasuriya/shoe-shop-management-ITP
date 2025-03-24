@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import mongoose from "mongoose";
+import mongoose, { connect } from "mongoose";
 import productRouter from "../backend/routes/productRouter.js"
 import cartRoute from "./routes/cartRoute.js";
 import wishlistRoute from "./routes/wishlistRoute.js";
@@ -9,55 +9,46 @@ import customizeShoeRoute from "./routes/customizeshoueRoute.js";
 import userRouter from "./routes/userRouter.js"
 import dotenv from "dotenv"
 import cors from "cors"
-import router from "./routes/auth.js";
 import cookieParser from "cookie-parser";
+import { connectDB } from "./DB/connectDB.js";
+import router from "./routes/authRouter.js";
+import employeeRoute from "./routes/employeeRoute.js";
 
-dotenv.config()
+dotenv.config();
 
 let app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(cors())
+app.use(cors({ origin: "http://localhost:5173", credentials: true}));
+app.use(express.json())
+app.use(cookieParser())
 
-app.use(bodyParser.json());
+// app.use((req, res, next) => {
+//     const token = req.header("Authorization");
 
-app.use((req, res, next)=>{
-    let token = req.header
-    ("Authorization")
+//     if (token !== null) {
+//         const cleanToken = token.replace("Bearer ", "");
 
-    if(token!=null){
-        token = token.replace("Bearer ","")
+//         jwt.verify(cleanToken, process.env.JWT_SECRET, (err, decoded) => {
+//             if (!err) {
+//                 req.user = decoded;
+//             }
+//         });
+//     }
+//     next();
+// });
 
-        jwt.verify(token, process.env.JWT_SECRET,
-            (err, decoded)=>{
-                if(!err){
-                    req.user = decoded
-                    //console.log(decoded)
-                }
-            }
-        )
-    }
-    next()
-    //console.log(token)
-})
-
-let mongourl = process.env.MONGO_URL
-
-mongoose.connect(mongourl);
-
-const connection =mongoose.connection
-connection.once("open",()=>{
-    console.log("Mongodb successfully connected");
-})
-
-app.use("/api/auth", router)
+app.use("/api/auth/", router)
 app.use("/api/users", userRouter)
-app.use("/api/product",productRouter)
-app.use("/api/cart",cartRoute)
-app.use("/api/wishlist",wishlistRoute)
-app.use("/api/review",reviewRoute)
-app.use("/api/customize",customizeShoeRoute)
+app.use("/api/product", productRouter);
+app.use("/api/cart", cartRoute);
+app.use("/api/wishlist", wishlistRoute);
+app.use("/api/review", reviewRoute);
+app.use("/api/customize", customizeShoeRoute);
+app.use("/api/employee", employeeRoute);
 
 
-app.listen(3000,()=>{
-    console.log("Server starting on 3000 port");
+app.listen(PORT,()=>{
+    connectDB()
+    console.log("Server starting on port", PORT)
 })
