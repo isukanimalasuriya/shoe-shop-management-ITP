@@ -27,6 +27,9 @@ export default function LoginPage(){
             else if(user.role === "HR_MANAGER"){
               navigate("/employeedashboardhr")
             }
+            else if(user.role === "DELIVERY_PERSON"){
+              navigate("/employeedashboarddelivery")
+            }
             else{
               navigate("/employeedashboard")
             }

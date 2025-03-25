@@ -15,7 +15,10 @@ import EmployeeRoutes from "./pages/EmployeeRoutes";
 import LoginPage from "./pages/loginpage";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
 import EmployeeDashboardHR from "./pages/EmployeeDashboardHR";
-import NavBar from "./components/NavBar";
+//import NavBar from "./components/NavBar";
+import DeliveryDashboard from "./pages/DeliveryDashboard";
+import NavBar2 from "./components/NavBar2";
+import Home from "../src/pages/Home"
 
 const RedirectAuthenticatedUser = ({children})=>{
   const {isAuthenticated, user} = useAuthStore();
@@ -28,8 +31,9 @@ const RedirectAuthenticatedUser = ({children})=>{
 
 function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-900 justify-center relative overflow-hidden">
-      <NavBar/>
+    <div className="min-h-screen bg-gradient-to-br justify-center relative overflow-hidden">
+      
+      <NavBar2/>
       <h1 className="m-40">Welcome to Home</h1>
       <Link to="/customerlogin">Login</Link>
       <Link to="/customerregister">Register</Link>
@@ -53,7 +57,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      
        <Toaster position="top-right"/>
 
         <Routes>
@@ -74,10 +78,11 @@ function App() {
 
           <Route path="/employeedashboard" element={<EmployeeDashboard/>} />
           <Route path="/employeedashboardhr" element={<EmployeeDashboardHR/>} />
+          <Route path="/employeedashboarddelivery" element={<DeliveryDashboard/>} />
 
           <Route path="/employeeroutes/*" element={<EmployeeRoutes/>} />
         </Routes>
-      </BrowserRouter>
+     
     </>
   )
 }
