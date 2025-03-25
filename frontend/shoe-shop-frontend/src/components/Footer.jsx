@@ -13,7 +13,7 @@ const Footer = () => {
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil,
             quisquam distinctio officiis maiores, dolores nam impedit dicta
             harum animi inventore dignissimos eius autem corporis iste repellat
-            adipisci doloremque tempore sapiente.
+            adipisci doloremque tempore sapiente.s
           </p>
         </div>
         <div>
