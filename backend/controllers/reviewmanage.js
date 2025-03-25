@@ -63,6 +63,21 @@ export async function updateReview(req,res) {
 
         const data = req.body;
 
+        const review = await Review.findById(reviewId);
+        if (!review) {
+            return res.status(404).json({ message: "Review not found" });
+        }
+        
+        console.log(review.userId)
+        console.log(data.userId)
+        
+        if (review.userId !== data.userId) {
+            console.log("------------------------------>",data)
+            return res.status(403).json({ message: "Unauthorized to update this review" });
+        }
+
+        
+
         const reviewObjId = new mongoose.Types.ObjectId(reviewId);
 
         await Review.updateOne({_id:reviewObjId},data)
